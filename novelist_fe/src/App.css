@@ -13,6 +13,18 @@
   }
 }
 
+.text-violet{
+  color: #9b4de0;
+}
+
+.bg-violet{
+  background-color: #9b4de0;
+}
+
+.filter{
+  background-color: hsla(0,0%,100%,0.05);
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -22,6 +34,10 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.border-l-violet{
+  border-color: #9b4de0;
 }
 
 .App-link {
