@@ -2,8 +2,8 @@ import { useState } from "react";
 
 export default function Header() {
   return (
-    <header className="w-full px-3 lg:px-10  z-50 backdrop-blur-xl">
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+    <header className="w-full   z-50 backdrop-blur-xl">
+      <div className="max-w-7xl mx-auto flex items-center justify-between   py-3">
         {/* Left search input */}
         <div className="flex items-center gap-3 flex-1 max-w-md"> 
           <div className="relative w-full">
@@ -22,6 +22,9 @@ export default function Header() {
 
         {/* Right icons */}
         <div className="flex items-center gap-6 ml-6">
+          <div className="p-2 px-4 bg-[#9b4de0] rounded-full font-semibold">
+            <p className="text-white">Đăng ký gói</p>
+          </div>
           <div className="p-2 bg-white rounded-full filter">
             <NotificationIcon className="w-6 h-6 text-white/80 hover:text-white transition" />
           </div>

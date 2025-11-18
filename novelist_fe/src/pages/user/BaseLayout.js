@@ -8,7 +8,7 @@ const UserBaseLayout=()=>{
             <div className="md:w-2/12    w-2/12 h-screen bg-[#231b2e] text-md font-medium  ">
                 <Menu/>
             </div>
-            <div className="md:w-10/12   w-10/12 h-screen ">
+            <div className="md:w-10/12 px-3 lg:px-10   w-10/12 h-screen ">
                 <Header/>
                 <Outlet/>
             </div>
