@@ -1,8 +1,6 @@
-import { useState } from "react";
-
 export default function Header() {
   return (
-    <header className="w-full   z-50 backdrop-blur-xl">
+    <header className="w-full  z-50 backdrop-blur-xl sticky top-0">
       <div className="max-w-7xl mx-auto flex items-center justify-between   py-3">
         {/* Left search input */}
         <div className="flex items-center gap-3 flex-1 max-w-md"> 

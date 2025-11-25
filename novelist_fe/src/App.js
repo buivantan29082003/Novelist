@@ -4,7 +4,7 @@ import AppRoute from './routes/AppRoute';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App font-sans">
       <AuthProvider>
         <AppRoute/>
       </AuthProvider>
