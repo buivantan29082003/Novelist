@@ -1,27 +1,46 @@
-import { useEffect, useState } from "react";
+import {useEffect, useState } from "react";
 import ModalGenres from "../../components/user/ModalGenres";
-import Chip from "@mui/material/Chip";
+import Chip from "@mui/material/Chip"; 
+import { getAllWork } from "../../services/api/user/work";
+import StoryCard from "../../components/user/story/StoryCard"; 
 import { FilterIcon } from "lucide-react";
 
 const Seacrhing = () => {
-
+  const [data,setData]=useState({
+    currentPage:0,
+    totalPage:0,
+    data:[]
+  })
   const getWork=(filters)=>{
-    // getAllWork
+    getAllWork(filters).then(v=>{ 
+      setData(v); 
+    })
   }
 
   return (
     <div className="text-left">
-      <Filter />
+      <Filter setData={getWork} /> 
+      
+
+      <div className="mt-5 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 grid gap-5">
+            {data.data.map(v=>{
+                return <StoryCard story={v}/>
+            })}  
+        </div>
     </div>
   );
 };
 
-const Filter = ({ setFilter }) => {
+const Filter = ({setData}) => {
   const [filters, setFilters] = useState({
     genres: new Map(),
     authors: new Map(),
     sortBy: 1,
   });
+
+  useEffect(()=>{
+    setData(filters)
+  },[])
 
   const chooseGenres = (element) => {
     let genre = filters.genres.get(element.id);
@@ -55,21 +74,23 @@ const Filter = ({ setFilter }) => {
 
  
   return (
-    // <div className="grid md:grid-cols-3 gap-5 mt-5">
+     
       <div> 
         <ModalGenres
           sortBy={filters.sortBy}
           setSortBy={(v)=>{
-            setFilter({...filters,sortBy:v})
+            setFilters({...filters,sortBy:v})
           }}
           chooseAuthor={chooseAuthors}
           authorMap={filters.authors}
           chooseElement={chooseGenres}
           genresMap={filters.genres}
           visibleElement={
-            <button className="flex items-center gap-4 inline-block text-md px-4 py-2  border-2 border-pink-700 rounded-full mt-5">
-                <FilterIcon size={15}  /> <button>Filters</button>
-            </button>
+            <>
+            <button className="flex items-center gap-4 inline-block text-md px-4 py-1  border-2 border-pink-700 rounded-full mt-5">
+                <FilterIcon size={15}  /> <button>Filters</button> 
+            </button> 
+            </>
           }
         />
         {filters.genres.size>0&&<div className="flex gap-3 items-center flex-wrap w-full mt-5">

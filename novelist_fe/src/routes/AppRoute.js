@@ -3,7 +3,9 @@ import PrivateRoute from './PrivateRoute';
 import UserBaseLayout from '../pages/user/BaseLayout';
 import Discovery from '../pages/user/Discover';
 import HomePage from '../pages/user/Home';
-import Seacrhing from '../pages/user/Search';
+import Seacrhing from '../pages/user/Search'; 
+import StoryDetail from '../pages/user/StoryDetail';
+import Chapter from '../pages/user/Chapter';
 
 const AppRoute=()=>{
     return <>
@@ -14,6 +16,8 @@ const AppRoute=()=>{
                         <Route path='home' element={<HomePage/>}/>
                         <Route path='discovery' element={<Discovery/>}/>
                         <Route path='search' element={<Seacrhing/>}/>
+                        <Route path='story/:id' element={<StoryDetail/>}/>
+                        <Route path='chapter/:chapterId' element={<Chapter/>}/>
                     </Route> 
                 </Route> 
             </Routes>

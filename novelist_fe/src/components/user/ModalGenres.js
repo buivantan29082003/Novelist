@@ -6,11 +6,11 @@ import { getAllGenre } from "../../services/api/common/genre";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import { Book, SortAsc, Tag } from "lucide-react";
 import FormControl from "@mui/material/FormControl";
- import Select from "@mui/material/Select";
+import Select from "@mui/material/Select";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
-// import {getAllAuthors} from "../../services/api/common/Author"
+import { getAllAuthors } from "../../services/api/common/Author"; 
 
 const style = {
   position: "absolute",
@@ -20,9 +20,9 @@ const style = {
   background: "linear-gradient(135deg,#1a1a2e,#16213e)",
   boxShadow: 24,
   p: 4,
-  maxWidth: 800, // không quá 800px trên màn hình lớn
-  maxHeight: "80vh", // 80% chiều cao màn hình
-  overflowY: "auto", // cuộn khi vượt quá
+  maxWidth: 800,  
+  maxHeight: "80vh", 
+  overflowY: "auto",  
   borderRadius: "8px",
 };
 const ITEM_HEIGHT = 48;
@@ -43,34 +43,27 @@ export default function ModalGenres({
   chooseAuthor,
   authorMap,
   sortBy,
-  setSortBy
+  setSortBy,
 }) {
   const [open, setOpen] = React.useState(false);
   const [genres, setGenres] = React.useState([]);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [authors, setAuthors] = React.useState([
-    {
-      id: 1,
-      authorName: "Trạch Trư",
-    },
-    {
-      id: 2,
-      authorName: "Triệu Lệ Dinh",
-    },
-  ]);
-  // React.useEffect(()=>{
-  //     getAllAuthors().then(v=>{
-  //         setAuthors(authors)
-  //     })
-  //   },[])
+  const [authors, setAuthors] = React.useState([]);
+  
+
   const chooseElemnent = (element) => {
     chooseElement(element);
   };
 
-  React.useEffect(() => {
+  React.useEffect(() => { 
+
     getAllGenre().then((v) => {
       setGenres(v);
+      
+    });
+    getAllAuthors().then((v) => { 
+      setAuthors(v);
     });
   }, []);
 
@@ -149,22 +142,26 @@ export default function ModalGenres({
             <Select
               labelId="demo-multiple-checkbox-label"
               id="demo-multiple-checkbox"
-              multiple 
+              multiple
               sx={{
-                color:"white",
-                border:"1px solid white",
-                
+                color: "white",
+                border: "1px solid white",
               }}
               value={authors.map((v) => v.authorName)}
               // onChange={handleChange}
               input={<OutlinedInput color="white" label="Tag" />}
               renderValue={(selected) => selected.join(", ")}
               MenuProps={MenuProps}
-              
             >
               {authors.map((v) => (
-                <MenuItem onChange={()=>{chooseAuthor(v)}}  key={v.authorName} value={v.authorName}>
-                  <Checkbox checked={authorMap.get(v.id)!=null} />
+                <MenuItem
+                  onChange={() => {
+                    chooseAuthor(v);
+                  }}
+                  key={v.authorName}
+                  value={v.authorName}
+                >
+                  <Checkbox checked={authorMap.get(v.id) != null} />
                   <ListItemText primary={v.authorName} />
                 </MenuItem>
               ))}
@@ -176,10 +173,38 @@ export default function ModalGenres({
             <p className="font-bold text-sm my-2  ">Sorting</p>
           </div>
           <div className="flex items-center gap-3 flex-wrap">
-              <button  onClick={setSortBy.bind(null,1)} className={`py-2 px-4 rounded-full border border-blue-600 text-white ${sortBy===1?"bg-blue-600 border-white":""}`}>Mới cập nhật</button>
-              <button onClick={setSortBy.bind(null,2)} className={`py-2 px-4 rounded-full border border-blue-600 text-white ${sortBy===2?"bg-blue-600 border-white":""}`}>Yêu thích nhất</button>
-              <button onClick={setSortBy.bind(null,3)} className={`py-2 px-4 rounded-full border border-blue-600 text-white ${sortBy===3?"bg-blue-600 border-white":""}`}>Lượt xem cao nhất</button>
-              <button onClick={setSortBy.bind(null,4)} className={`py-2 px-4 rounded-full border border-blue-600 text-white ${sortBy===4?"bg-blue-600 border-white":""}`}>Truyện mới nhất</button>
+            <button
+              onClick={setSortBy.bind(null, 1)}
+              className={`py-2 px-4 rounded-full border border-blue-600 text-white ${
+                sortBy === 1 ? "bg-blue-600 border-white" : ""
+              }`}
+            >
+              Mới cập nhật
+            </button>
+            <button
+              onClick={setSortBy.bind(null, 2)}
+              className={`py-2 px-4 rounded-full border border-blue-600 text-white ${
+                sortBy === 2 ? "bg-blue-600 border-white" : ""
+              }`}
+            >
+              Yêu thích nhất
+            </button>
+            <button
+              onClick={setSortBy.bind(null, 3)}
+              className={`py-2 px-4 rounded-full border border-blue-600 text-white ${
+                sortBy === 3 ? "bg-blue-600 border-white" : ""
+              }`}
+            >
+              Lượt xem cao nhất
+            </button>
+            <button
+              onClick={setSortBy.bind(null, 4)}
+              className={`py-2 px-4 rounded-full border border-blue-600 text-white ${
+                sortBy === 4 ? "bg-blue-600 border-white" : ""
+              }`}
+            >
+              Truyện mới nhất
+            </button>
           </div>
         </Box>
       </Modal>
