@@ -14,7 +14,7 @@ export default function StoryDetail(){
 
   const [story, setStory] = useState(null);
   const {id}=useParams()
-  useEffect(()=>{
+  useEffect(()=>{ 
     getWorkById(id).then(v=>{  
       setStory(v)
     })

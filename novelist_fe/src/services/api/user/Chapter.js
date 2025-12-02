@@ -8,6 +8,12 @@ export const getChapterByWork=async(id, query, currentPage)=>{
 
 export const getChapterById=async (id)=>{
     return await userApi.get("chapter/detail/"+id).then(v=>{
-        return v.data.data
+        let data=null;
+        if(v.data.isError===true){  
+            data=v.data 
+        }else{ 
+            data=v.data.data
+        } 
+        return data
     })
 }

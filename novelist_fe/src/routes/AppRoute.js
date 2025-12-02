@@ -6,6 +6,7 @@ import HomePage from '../pages/user/Home';
 import Seacrhing from '../pages/user/Search'; 
 import StoryDetail from '../pages/user/StoryDetail';
 import Chapter from '../pages/user/Chapter';
+import Plan from '../pages/user/Plan';
 
 const AppRoute=()=>{
     return <>
@@ -18,6 +19,7 @@ const AppRoute=()=>{
                         <Route path='search' element={<Seacrhing/>}/>
                         <Route path='story/:id' element={<StoryDetail/>}/>
                         <Route path='chapter/:chapterId' element={<Chapter/>}/>
+                        <Route path='plans' element={<Plan/>}/>
                     </Route> 
                 </Route> 
             </Routes>

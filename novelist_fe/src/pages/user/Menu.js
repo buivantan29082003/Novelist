@@ -16,7 +16,7 @@ const Menu = () => {
     },
     {
       to: "/library",
-      tabName: "Thư viện",
+      tabName: "BookMarks",
       icon: <LibraryIcon />,
     },
     {
