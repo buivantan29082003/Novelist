@@ -1,7 +1,9 @@
 import { Skeleton } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getChapterById } from "../../services/api/user/Chapter";
+import { getChapterById, handleBookMark } from "../../services/api/user/Chapter";
+import Bookmark from "../../components/user/BookMark";
+import { getDataError } from "../../services/api/common/handleDataError";
 
 const Chapter = () => {
   const { chapterId } = useParams();
@@ -13,6 +15,16 @@ const Chapter = () => {
       })
       .catch((error) => {});
   }, []);
+
+
+  const handlingBookMark=()=>{
+    handleBookMark(chapter.isBookMark?0:1,chapter.id).then(v=>{
+      alert("Thành công")
+      setChapter({...chapter,isBookMark:!chapter.isBookMark})
+    }).catch(error=>{
+      alert(getDataError(error).message)
+    })
+  }
 
   return (
     <>
@@ -145,8 +157,8 @@ const Chapter = () => {
                     </div>
                   </div>
                 </div>
-                <p className="text-center text-3xl font-medium mt-5">
-                  Chương {chapter.chapterIndex}: {chapter.chapterName}
+                <p className="text-center text-3xl font-medium mt-5 flex items-center justify-center gap-4">
+                  <Bookmark handleOnClick={handlingBookMark} size={30} className="cursor-pointer" isBookMark={chapter.isBookMark}/> <span>Chương {chapter.chapterIndex}: {chapter.chapterName} </span>
                 </p>
                 <p className="mt-5 w-10/12 mx-auto tracking-wide leading-[2rem]">
                   {chapter.content}

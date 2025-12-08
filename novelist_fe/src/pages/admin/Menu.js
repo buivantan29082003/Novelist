@@ -6,22 +6,22 @@ import CategoryIcon from "../../assets/icons/Cate";
 import icon from "../../assets/images/icon.png";
 import Plan from "../../assets/icons/Plans";
 import { Link } from "react-router-dom";
-const Menu = () => {
+const MenuAdmin = () => {
   const [tabIndex,setTabIndex]=useState(0)
   const [tabs, setTabs] = useState([
     {
-      to: "/user/search",
-      tabName: "Khám phá",
+      to: "/admin/search",
+      tabName: "Manage works",
       icon: <DiscIcon />,
     },
     {
-      to: "/user/bookmarks",
-      tabName: "BookMarks",
+      to: "/user/registration",
+      tabName: "Registration",
       icon: <LibraryIcon />,
     },
     {
-      to: "/user/history",
-      tabName: "History",
+      to: "/user/traffic",
+      tabName: "Traffic",
       icon: <StarIcon />,
     },
   ]);
@@ -48,17 +48,17 @@ const Menu = () => {
 
       <div onClick={setTabIndex.bind(null,4)} className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${tabIndex===4?"border-l-2 border-l-violet filter":""}`}>
         <CategoryIcon />
-        <Link className="hidden lg:inline">Your Package</Link>
+        <Link className="hidden lg:inline">Account</Link>
       </div>
       <div onClick={setTabIndex.bind(null,5)} className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${tabIndex===5?"border-l-2 border-l-violet filter":""}`}>
         <Plan />
-        <Link to={"/user/plans"} className="hidden lg:inline">Packages</Link>
+        <Link to={"/user/plans"} className="hidden lg:inline"></Link>
       </div>
     </>
   );
 };
 
-export default Menu;
+export default MenuAdmin;
 
 
 

@@ -1,11 +1,13 @@
 import { Eye, ThumbsUp } from "lucide-react";
 import { formatReactionNumber } from "../../../services/utils/FormatReactionNumber";
 import { useNavigate } from "react-router-dom";
+import RankIcon from "../../common/Ranking";
 
 const StoryCard = ({ story }) => {
   const navigate=useNavigate()
   return (
     <div className="cursor-pointer w-full rounded-md group overflow-hidden relative">
+      
       <div onClick={()=>{
         navigate("/user/story/"+story.id)
       }} className="relative w-full h-[200px] overflow-hidden group rounded-sm cursor-pointer"> 
@@ -43,6 +45,7 @@ const StoryCard = ({ story }) => {
             <span className="text-xs">
               {formatReactionNumber(story.like ?? story.view)}
             </span>
+            
           </div>
         </div>
       </div>

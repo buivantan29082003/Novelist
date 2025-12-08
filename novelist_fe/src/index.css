@@ -16,6 +16,31 @@ html {
   font-family: theme('fontFamily.sans');
 }
 
+@keyframes shineSmooth {
+  0% {
+    transform: translateX(-150%);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.9;
+  }
+  80% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+}
+
+.animate-shine-smooth {
+  animation: shineSmooth 1.2s ease-out infinite;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

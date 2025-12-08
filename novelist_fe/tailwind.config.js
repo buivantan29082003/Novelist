@@ -5,6 +5,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      keyframes: {
+        shine: {
+          '0%': { transform: 'translateX(-150%) rotate(25deg)' },
+          '100%': { transform: 'translateX(150%) rotate(25deg)' },
+        },
+      },
+      animation: {
+        shine: 'shine 2s linear infinite',
+      },
       fontFamily: {
         sans: [
           "-apple-system",

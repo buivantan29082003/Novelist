@@ -4,6 +4,7 @@ import { getChapterByWork } from "../../../services/api/user/Chapter";
 import { formatDate } from "../../../services/api/common/FormatDate";
 import ChipPackage from "../../common/ChipPackage";
 import { useNavigate } from "react-router-dom";
+import LoadingRow from "../../common/LoadingRow";
 
 const ChapterList = ({workId}) => {
   const [chapters, setChapters] = useState({
@@ -11,12 +12,15 @@ const ChapterList = ({workId}) => {
     totalPage:1,
     currentPage:1
   });
-
+  const [isLoading,setIsLoading]=useState(false)
   const navogate=useNavigate()
 
   const getChapter=()=>{
+    setIsLoading(true)
     getChapterByWork(workId,filters.query.trim().length===0?null:filters.query,filters.currentPage).then(v=>{
         setChapters(v);
+    }).finally(()=>{
+      setIsLoading(false)
     })
   }
   
@@ -28,14 +32,15 @@ const ChapterList = ({workId}) => {
 
   useEffect(()=>{
     getChapter()
-  },[filters])
+  },[])
 
   return (
     <>
-      <div className="flex flex-wrap items-center mt-5">
+      <div className="flex flex-wrap items-center mt-5 gap-3">
         <Pagination
           onChange={(evennt, value) => {
-            setFilters({ ...filters, currentPage: value });
+            filters.currentPage=value;
+            getChapter()
           }}
           sx={{
             "& .MuiPaginationItem-root": {
@@ -50,8 +55,12 @@ const ChapterList = ({workId}) => {
           variant="outlined"
           color="primary"
         />
+        <input value={filters.query} onChange={e=>setFilters({...filters,query:e.target.value})} placeholder="enter your keywork" className="border border-gray-800 outline-none py-1 px-2 rounded-sm bg-transparent"/>
+    <button onClick={getChapter}  className="py-1 px-3 rounded-sm bg-violet-500 text-white font-semibold hover:bg-violet-700">Search</button>
+    
         
       </div>
+      {isLoading&&<LoadingRow quanityRow={8}/>}
       {chapters.data.map((v) => {
         return (
           <>

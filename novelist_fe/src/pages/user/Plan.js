@@ -61,7 +61,7 @@ export default function Plan() {
       price: "999.000/Year",
       color: "text-red-500",
       border: "border-re",
-      planId:2,
+      planId:3,
       button: "bg-red-500 hover:bg-red-600",
       features: [
         "Up to 6 months",
@@ -108,7 +108,7 @@ export default function Plan() {
       price: "599.000 / 6 months",
       color: "text-sky-500",
       border: "bor ",
-      planId:3,
+      planId:2,
       button: "bg-sky-500 hover:bg-sky-600",
       features: ["Unlimited Access", "On-demand request", "Lifetime Access"],
       icon:  <svg
@@ -169,7 +169,7 @@ export default function Plan() {
   },[])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-sky-900 to-black rounded-sm p-10 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-b from-violet-900 to-black rounded-sm p-10 flex flex-col items-center">
       <h1 className="text-white text-3xl font-bold">CHOOSE YOUR PLAN</h1>
       <p className="text-blue-100 mt-3 text-center max-w-xl">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Universa enim
@@ -201,7 +201,7 @@ export default function Plan() {
         {plans.map((plan, index) => (
           <div
             key={index}
-            className={`bg-black/60 backdrop-blur-xl filter rounded-2xl shadow-lg p-8 border ${
+            className={`bg-black/100 backdrop-blur-xl filter rounded-2xl shadow-lg p-8  shadow-md filter ${
               plan.border
             } transition-all duration-300 ${
               index % 2 === 0 ? "mt-10" : "mt-0"
