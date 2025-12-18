@@ -6,8 +6,12 @@ export const getNotificationIsNotReaded=async()=>{
     })
 }
 
-export const getNotification=(currentPage, isReaded)=>{ 
-    return userApi.get("notifications?currentPage?="+currentPage+`&${isReaded===0?"isReaded="+0:""}`).then(v=>{
+export const getNotification=async (currentPage, isReaded)=>{ 
+    return await userApi.get("notifications?currentPage?="+currentPage+`&${isReaded===0?"isReaded="+0:""}`).then(v=>{
         return v.data.data
     })
+}
+
+export const setReaded=async(notificationId)=>{
+    return await userApi.post("/notification/readed/"+notificationId) 
 }
