@@ -1,7 +1,7 @@
 import { EyeOff, ReplyIcon } from "lucide-react";
 import {   useState } from "react";
-import { getCommentByCommentId } from "../../../services/api/user/Comment";
-import InputReply from "../../common/InputReply";
+import { getCommentByCommentId } from "../../services/api/user/Comment";
+import InputReply from "./InputReply";
 
 const Comment = ({ comment, level = 0, workId }) => {
   const [pages, setPage] = useState({

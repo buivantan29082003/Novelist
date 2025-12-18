@@ -1,61 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { BellRing, Heart } from "lucide-react";
+import React, { useEffect, useState } from "react"; 
 import { Skeleton } from "@mui/material";
 import { getWorkById } from "../../services/api/user/work";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { formatDate } from "../../services/api/common/FormatDate";
-import { formatReactionNumber } from "../../services/utils/FormatReactionNumber"; 
-import { follow, unFollow } from "../../services/api/user/Folowing";
-import { like, unLike } from "../../services/api/user/Favorite";
-import CommentList from "../../components/common/CommentList";
+import { formatReactionNumber } from "../../services/utils/FormatReactionNumber";  
 import ChapterList from "../../components/common/ChapterList";
+import CommentList from "../../components/common/CommentList";
 
-export default function StoryDetail(){
+export default function StoryDetailAdmin(){
 
+ 
   const [story, setStory] = useState(null);
-  const {id}=useParams()
+  const {workId}=useParams()
   useEffect(()=>{ 
-    getWorkById(id).then(v=>{  
+    getWorkById(workId).then(v=>{  
       setStory(v)
     })
-  },[])
-
-  const likes=()=>{
-    if(story.isLike!==true){
-      like(story.id).then(v=>{
-        alert("Đã yêu thích thành công");
-        setStory({...story,isLike:true,like:story.following+1})
-      }).catch(error=>{
-        alert("Follow thất bại")
-      })
-    }else{
-      unLike(story.id).then(v=>{
-        alert("Đã hủy follow thành công");
-        setStory({...story,isLike:false,like:story.following-1})
-      }).catch(error=>{
-        alert("Unfollow thất bại")
-      })
-    }
-  }
-
-  const follows=()=>{
-    if(story.isFollow!==true){
-      follow(story.id).then(v=>{
-        alert("Đã follow thành công");
-        setStory({...story,isFollow:true,following:story.following+1})
-      }).catch(error=>{
-        alert("Follow thất bại")
-      })
-    }else{
-      unFollow(story.id).then(v=>{
-        alert("Đã hủy follow thành công");
-        setStory({...story,isFollow:false,following:story.following-1})
-      }).catch(error=>{
-        alert("Unfollow thất bại")
-      })
-    }
-  }
-  
+  },[]) 
   return (
     <>
       <div className="w-full py-5 text-white flex justify-between">
@@ -116,11 +77,7 @@ export default function StoryDetail(){
                     src={story.image}
                     className="h-[230px] w-full"
                     style={{ objectFit: "cover" }}
-                  />
-                  <button className="w-full flex items-center justify-center gap-3 py-2 px-6 bg-sky-500 ">
-                    <span className="text-3xl font-bold">+</span>
-                    <span>{story.isLike?"Hủy yêu thích":"Yêu thích"}</span>
-                  </button>
+                  /> 
                 </div>
               </div>
 
@@ -131,17 +88,7 @@ export default function StoryDetail(){
                 </p>
                 <h1 className="text-xl text-left font-semibold my-5">
                   {story.title}
-                </h1>
-
-                <div className="flex gap-4 mb-4 text-sm md:text-md">
-                  <button onClick={follows} className="bg-sky-600 hover:bg-sky-500 transition px-5 py-2 rounded-md flex items-center gap-2 ">
-                    <BellRing size={18} /> {story.isFollow?"Bỏ follow":"Follow"}
-                  </button>
-
-                  <button onClick={likes} className="bg-sky-600 hover:bg-sky-500 transition px-5 py-2 rounded-md flex items-center gap-2 font-medium">
-                    <Heart size={18} /> <span>{story.isLike?"Hủy yêu thích":"Thích"}</span>
-                  </button>
-                </div>
+                </h1> 
 
                 <p className="text-sm text-left">{story.content}</p>
               </div>
@@ -198,7 +145,7 @@ export default function StoryDetail(){
     <div className="grid grid-cols-12 gap-4">
       {/* Trái */}
       <div className="col-span-12 md:col-span-8">
-        <Tab chapterId={id}/>
+        <Tab chapterId={workId}/>
       </div>
 
       {/* Phải */}
@@ -214,7 +161,8 @@ export default function StoryDetail(){
 
 const Tab=({chapterId})=>{
   const [tab,setTab]=useState(1);
-
+  const navigate= useNavigate();
+  
   return <>
     <div className="flex items-center gap-7 my-3 border-b border-sky-500">
       <span
@@ -235,7 +183,7 @@ const Tab=({chapterId})=>{
         Bình Luận
       </span>
     </div>
-    {tab===1?<ChapterList workId={chapterId} />:<CommentList workId={chapterId}/>}
+    {tab===1?<ChapterList direct="/admin/chapter/update/"   workId={chapterId} />:<CommentList  workId={chapterId}/>}
     
   </>
 

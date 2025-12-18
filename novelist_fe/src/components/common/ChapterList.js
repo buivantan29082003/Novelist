@@ -1,12 +1,12 @@
 import { Pagination } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getChapterByWork } from "../../../services/api/user/Chapter";
-import { formatDate } from "../../../services/api/common/FormatDate";
-import ChipPackage from "../../common/ChipPackage";
-import { useNavigate } from "react-router-dom";
-import LoadingRow from "../../common/LoadingRow";
+import { getChapterByWork } from "../../services/api/user/Chapter";  
+import { useNavigate } from "react-router-dom"; 
+import LoadingRow from "./LoadingRow";
+import { formatDate } from "../../services/api/common/FormatDate";
+import ChipPackage from "./ChipPackage";
 
-const ChapterList = ({workId}) => {
+const ChapterList = ({workId, direct="/user/chapter/"}) => {
   const [chapters, setChapters] = useState({
     data:[],
     totalPage:1,
@@ -64,7 +64,7 @@ const ChapterList = ({workId}) => {
       {chapters.data.map((v) => {
         return (
           <>
-            <div onClick={()=>navogate("/user/chapter/"+v.id)} className="my-3 cursor-pointer flex items-start justify-between py-3 border-b border-gray-700">
+            <div onClick={()=>navogate(direct+v.id)} className="my-3 cursor-pointer flex items-start justify-between py-3 border-b border-gray-700">
               <div className="text-sm">
                 <p className="text-sky-500 text-left">
                   Chương {v.chapterIndex} &nbsp;
@@ -75,9 +75,11 @@ const ChapterList = ({workId}) => {
                 </p>
                 <p className="text-left mt-2">{v.chapterName}</p>
               </div>
+               
               <div>
                 <p>
                   <ChipPackage packageId={v.plan != null ? v.plan.id : 0} />
+                  
                 </p>
               </div>
             </div>
@@ -89,23 +91,4 @@ const ChapterList = ({workId}) => {
 };
 
 export default ChapterList;
-
-
-// {/* <div className="flex items-center gap-3 flex-1 max-w-md">
-//           <div className="relative w-full">
-//             <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-70">
-//               {/* Search Icon */}
-//               <SearchIcon className="w-5 h-5 text-white/70 cursor-pointer " />
-//             </span>
-
-//             <input
-//               type="text"
-//               value={filters.query}
-//               onChange={(e) => {
-//                 setFilters({ ...filters, query: e.target.value });
-//               }}
-//               placeholder="Tìm kiếm truyện, tác giả..."
-//               className="w-full bg-white/5   text-white placeholder-white text-md pl-11 pr-1 py-2 rounded-full outline-none border border-white/10 focus:border-white/20 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08)]"
-//             />
-//           </div>
-//         </div> */}
+ 

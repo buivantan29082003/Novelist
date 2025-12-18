@@ -5,9 +5,10 @@ import StarIcon from "../../assets/icons/Top";
 import CategoryIcon from "../../assets/icons/Cate";
 import icon from "../../assets/images/icon.png";
 import Plan from "../../assets/icons/Plans";
-import { Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 const Menu = () => {
-  const [tabIndex,setTabIndex]=useState(0)
+  const [tabIndex, setTabIndex] = useState(0);
+  const navigate = useNavigate();
   const [tabs, setTabs] = useState([
     {
       to: "/user/search",
@@ -20,8 +21,8 @@ const Menu = () => {
       icon: <LibraryIcon />,
     },
     {
-      to: "/user/history",
-      tabName: "History",
+      to: "/user/account",
+      tabName: "Account",
       icon: <StarIcon />,
     },
   ]);
@@ -33,56 +34,54 @@ const Menu = () => {
       <div className="block  md:hidden my-3 flex justify-center">
         <img alt="" src={icon} className="w-9 h-9" />
       </div>
-      {tabs.map((v,i) => {
+      {tabs.map((v, i) => {
         return (
           <>
-            <div onClick={setTabIndex.bind(null,i)} className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${tabIndex===i?"border-l-2 border-l-violet filter":""}`}>
+            <div
+              onClick={() => {
+                setTabIndex(i);
+                navigate(v.to);
+              }}
+              className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${
+                tabIndex === i ? "border-l-2 border-l-violet filter" : ""
+              }`}
+            >
               {v.icon}
-              <Link to={v.to}  className="hidden lg:inline">{v.tabName}</Link>
+              <span className="hidden lg:inline">{v.tabName}</span>
             </div>
           </>
         );
-        // border-l border-l-violet
       })}
-      <hr class="border-0 h-[1px] bg-white/10 my-6 mx-auto w-[80%]" />
-
-      <div onClick={setTabIndex.bind(null,4)} className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${tabIndex===4?"border-l-2 border-l-violet filter":""}`}>
+      <hr class="border-0 h-[1px] bg-white/10 my-6 mx-auto w-[80%]" /> 
+      <div
+        onClick={() => {
+          setTabIndex(4);
+          navigate("/user/mypackage");
+        }}
+        className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${
+          tabIndex === 4 ? "border-l-2 border-l-violet filter" : ""
+        }`}
+      >
         <CategoryIcon />
-        <Link className="hidden lg:inline">Your Package</Link>
+        <span className="hidden lg:inline">Your Package</span>
       </div>
-      <div onClick={setTabIndex.bind(null,5)} className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${tabIndex===5?"border-l-2 border-l-violet filter":""}`}>
+      <div
+        onClick={() => {
+          setTabIndex(5);
+          navigate("/user/plans");
+        }}
+        className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${
+          tabIndex === 5 ? "border-l-2 border-l-violet filter" : ""
+        }`}
+      >
         <Plan />
-        <Link to={"/user/plans"} className="hidden lg:inline">Packages</Link>
+        <span className="hidden lg:inline">Packages</span>
       </div>
     </>
   );
 };
 
 export default Menu;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 function LogoZing() {
   return (

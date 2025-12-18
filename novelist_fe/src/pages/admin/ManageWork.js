@@ -4,8 +4,10 @@ import Stack from "@mui/material/Stack";
 import ModalGenres from "../../components/user/ModalGenres";
 import { getAllWork } from "../../services/api/admin/work";
 import { formatReactionNumber } from "../../services/utils/FormatReactionNumber";
-import { Heart, Plus, View } from "lucide-react";
-import AddWorkForm from "../../components/admin/AddWorkForm";
+import { Heart, Link, Plus, View } from "lucide-react";
+import AddWorkForm from "../../components/admin/AddWorkForm";  
+import LoadingRow from "../../components/common/LoadingRow";
+import { useNavigate } from "react-router-dom";
 const ManageWorks = () => {
   const [filters, setFilters] = useState({});
   const [works, setWorks] = useState({
@@ -13,12 +15,19 @@ const ManageWorks = () => {
     data: [],
   });
   const [isLoading, setIsLoading] = useState(false);
-
+ 
   const getWork = (filters) => {
+    setIsLoading(true)
     getAllWork(filters).then((v) => {
       setWorks(v);
-    });
+    }).catch(error=>{
+      
+    })
+    .finally(e=>{
+      setIsLoading(false)
+    })
   };
+  const navigate=useNavigate()
 
   return (
     <>
@@ -60,6 +69,7 @@ const ManageWorks = () => {
           Search
         </button>
       </div>
+      {isLoading&&<LoadingRow quanityRow={10}/>}
       {!isLoading && (
         <>
           {/* header */}
@@ -70,6 +80,7 @@ const ManageWorks = () => {
             <div className="col-span-2">Static</div>
             <div className="col-span-2 ">Action</div>
           </div>
+          
 
           {/* rows */}
           {works.data.map((v) => (
@@ -106,7 +117,7 @@ const ManageWorks = () => {
               </div>
 
               {/* Traffic */}
-              <div className="col-span-2 text-sm text-right text-gray-200">
+              <div onClick={navigate.bind(null,"/admin/work/traffic/"+v.id)} className="col-span-2 text-sm text-right text-gray-200">
                 <div className="flex items-center gap-2 text-red-500">
                   <View size={10} /> {formatReactionNumber(v.view)}
                 </div>
@@ -125,6 +136,12 @@ const ManageWorks = () => {
 
               {/* Action */}
               <div className="col-span-2 text-left ">
+                <button  onClick={navigate.bind(null,"/admin/work/chapter/add/"+v.id)} className="px-3 block mb-2 py-1 rounded bg-indigo-600 text-white text-sm">
+                  Add chapter
+                </button>
+                <button onClick={navigate.bind(null,"/admin/work/"+v.id)} className="px-3 py-1 mb-2 block rounded bg-yellow-600 text-white text-sm">
+                  Details
+                </button>
                 <button className="px-3 py-1 rounded bg-indigo-600 text-white text-sm">
                   Edit
                 </button>

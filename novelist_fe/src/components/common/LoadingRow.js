@@ -1,6 +1,6 @@
 import { Skeleton } from "@mui/material"
 
-const LoadingRow = ({ quanityRow }) => {
+const LoadingRow = ({ quanityRow, color="grey.900" }) => {
   return (
     <div className="w-full space-y-3">
       {Array.from({ length: quanityRow }).map((_, i) => (
@@ -9,7 +9,7 @@ const LoadingRow = ({ quanityRow }) => {
           variant="text"
           width="100%"
           height={24}
-          sx={{ bgcolor: "grey.900" }}
+          sx={{ bgcolor: color }}
         />
       ))}
     </div>

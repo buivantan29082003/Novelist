@@ -52,7 +52,7 @@ const MenuAdmin = () => {
       </div>
       <div onClick={setTabIndex.bind(null,5)} className={`flex px-5 gap-4 w-full py-3 my-2 items-center cursor-pointer justify-center  lg:justify-start ${tabIndex===5?"border-l-2 border-l-violet filter":""}`}>
         <Plan />
-        <Link to={"/user/plans"} className="hidden lg:inline"></Link>
+        <Link to={"/user/plans"} className="hidden lg:inline">Form Requests</Link>
       </div>
     </>
   );

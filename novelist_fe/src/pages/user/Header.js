@@ -1,9 +1,21 @@
+import { useEffect, useState } from "react";
+import { getNotificationIsNotReaded } from "../../services/api/user/Notification";
+import PopupNotification from "../../components/user/NotificationPopup";
+
 export default function Header() {
+  const [notificationNotReaded, setNotificationIsNotReaded] = useState(0); 
+   
+  useEffect(() => {
+    getNotificationIsNotReaded()
+        .then((v) => setNotificationIsNotReaded(v))
+        .catch((error) => console.error(error));
+  }, []);
+
   return (
     <header className="w-full  z-50 backdrop-blur-xl sticky top-0">
       <div className="max-w-7xl mx-auto flex items-center justify-between   py-3">
         {/* Left search input */}
-        <div className="flex items-center gap-3 flex-1 max-w-md"> 
+        <div className="flex items-center gap-3 flex-1 max-w-md">
           <div className="relative w-full">
             <span className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none opacity-70">
               {/* Search Icon */}
@@ -23,8 +35,11 @@ export default function Header() {
           <div className="p-2 px-4 bg-[#9b4de0] rounded-full font-semibold">
             <p className="text-white">Đăng ký gói</p>
           </div>
-          <div className="p-2 bg-white rounded-full filter">
-            <NotificationIcon className="w-6 h-6 text-white/80 hover:text-white transition" />
+          <div className="p-2  bg-white rounded-full filter cursor-pointer">
+            <PopupNotification><NotificationIcon
+              count={notificationNotReaded}
+              className="w-6 h-6 text-white/80 hover:text-white transition"
+            /></PopupNotification>
           </div>
 
           <div className="w-9 h-9 rounded-full overflow-hidden border border-white/20">
@@ -59,21 +74,29 @@ function SearchIcon(props) {
   );
 }
 
-function NotificationIcon(props) {
+function NotificationIcon({ count }) {
   return (
-    <svg
-      {...props}
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      viewBox="0 0 24 24"
-      color="white"
-    >
-      <path color="white"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M15 17h5l-1.4-2.1A2 2 0 0118 13.2V10a6 6 0 10-12 0v3.2c0 .7-.2 1.4-.6 2L4 17h5m6 0a3 3 0 11-6 0h6z"
-      />
-    </svg>
+    <div className="relative w-6 h-6">
+      <svg
+        className="w-full h-full"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        viewBox="0 0 24 24"
+        color="white"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15 17h5l-1.4-2.1A2 2 0 0118 13.2V10a6 6 0 10-12 0v3.2c0 .7-.2 1.4-.6 2L4 17h5m6 0a3 3 0 11-6 0h6z"
+        />
+      </svg>
+
+      {count > 0 && (
+        <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+          {count}
+        </span>
+      )}
+    </div>
   );
 }

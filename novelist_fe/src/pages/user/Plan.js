@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Box from '@mui/material/Box'; 
 import Modal from '@mui/material/Modal';
 import { getPaymentMethod, getPaymentUrl } from "../../services/api/user/Registration";
+import { getAllPlan } from "../../services/api/common/Plan";
 const style = {
   position: 'absolute',
   top: '50%',
@@ -13,17 +14,10 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-export default function Plan() {
-  const plans = [
-    {
-      title: "Free Tire",
-      price: "229.000 / 6 months",
-      planId:"1",
-      color: "text-white",
-      border: "border-pur",
-      button: "bg-gray-600 hover:bg-gray-700",
-      features: ["Unlimited Downloads", "Email Support", "Limited Access"],
-      icon: (
+export default function Plan() { 
+  const [mapIcon, setMapIcon] = useState(
+    new Map([
+      ["1", <>
         <svg
           width="90"
           height="90"
@@ -54,22 +48,9 @@ export default function Plan() {
           <line x1="40" y1="28" x2="46" y2="26" />
           <line x1="46" y1="26" x2="48" y2="28" />
         </svg>
-      ),
-    },
-    {
-      title: "VipPro",
-      price: "999.000/Year",
-      color: "text-red-500",
-      border: "border-re",
-      planId:3,
-      button: "bg-red-500 hover:bg-red-600",
-      features: [
-        "Up to 6 months",
-        "Reading novelist with VipPro",
-        "Not recive a AD when reading",
-        "6 months access",
-      ],
-      icon: <svg 
+      </>],
+      ["2",<>
+      <svg 
       width="80" 
       height="80" 
       viewBox="0 0 64 64" 
@@ -101,17 +82,10 @@ export default function Plan() {
       {/* Đường */}
       <line x1="10" y1="52" x2="54" y2="52" />
       <line x1="16" y1="56" x2="48" y2="56" />
-    </svg>,
-    },
-    {
-      title: "Premium",
-      price: "599.000 / 6 months",
-      color: "text-sky-500",
-      border: "bor ",
-      planId:2,
-      button: "bg-sky-500 hover:bg-sky-600",
-      features: ["Unlimited Access", "On-demand request", "Lifetime Access"],
-      icon:  <svg
+    </svg>
+      </>],
+      ["3",<>
+       <svg
       width="80"
       height="80"
       viewBox="0 0 64 64"
@@ -133,9 +107,20 @@ export default function Plan() {
 
       {/* Mây dưới */}
       <path d="M20 48c0-2 2-4 5-4 2 0 4 1 5 2 1-1 3-2 5-2 3 0 5 2 5 4H20z" />
-    </svg>,
-    },
-  ];
+    </svg>
+      </>]
+    ])
+  );
+
+  const [plans,setPlans]=useState([
+
+  ])
+  useEffect(()=>{
+    
+    getAllPlan().then(v=>{
+      setPlans(v)
+    })
+  },[])
   const [open,setOpen]=useState(false)
   const handleClose=()=>{
     setOpen(false);
@@ -209,16 +194,16 @@ export default function Plan() {
           >
             <div className="text-center">
               <div className={`text-6xl flex justify-center ${plan.color}`}>
-                {plan.icon}
+                {mapIcon.get(""+plan.id)} {plan.planId}
               </div>
-              <h2 className="text-xl font-bold mt-4">{plan.title}</h2>
+              <h2 className="text-xl font-bold mt-4">{plan.planName}</h2>
               <p className={`text-2xl font-semibold mt-2 ${plan.color}`}>
-                {plan.price}
+                {plan.fee} VND
               </p>
             </div>
 
             <ul className="mt-6 space-y-3">
-              {plan.features.map((f, i) => (
+              { ["Unlimited Access", "On-demand request", "Lifetime Access"].map((f, i) => (
                 <li key={i} className="flex items-center gap-2 text-white">
                   <span className="text-green-500 font-bold">•</span> {f}
                 </li>

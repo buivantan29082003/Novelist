@@ -11,3 +11,10 @@ export const getPaymentUrl=async (paymentType, planId)=>{
         return v.data.data
     })
 }
+
+
+export const getAllRegistration=async(filters)=>{
+    return await userApi.get(`/registration/getall?${filters.planId!=-1?"planId="+filters.planId:""}&currentPage=`+filters.currentPage).then(v=>{
+        return v.data.data
+    })
+}

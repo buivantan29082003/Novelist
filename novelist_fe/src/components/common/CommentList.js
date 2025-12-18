@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react" 
+ import InputReply from "./InputReply"
 import Comment from "./Conment"
-import { getCommentByWorkId } from "../../../services/api/user/Comment"
-import InputReply from "../../common/InputReply"
-import LoadingRow from "../../common/LoadingRow"
+import LoadingRow from "./LoadingRow"
+import { getCommentByWorkId } from "../../services/api/user/Comment"
 
 const CommentList=({workId})=>{
     
@@ -15,8 +15,7 @@ const CommentList=({workId})=>{
     const getComments=()=>{
         setIsLoading(true)
         getCommentByWorkId(workId,currentPage.currentPage).then(v=>{
-            currentPage.totalPage=v.totalPage
-            // console.log(v)
+            currentPage.totalPage=v.totalPage 
             setComments(prev => [...prev, ...v.data]);  
         }).finally(()=>{
             setIsLoading(false)
